@@ -23,7 +23,9 @@
   fnt.addEventListener('input',function(){setFont(+fnt.value);});
   setFont(4);
   var lg=document.getElementById('logo');if(lg)lg.addEventListener('click',function(){sheet.classList.remove('min');});
-  function fit(){var w=window.innerWidth-32;phone.style.zoom=w<393?(w/393):1;}
+  function fit(){var iw=window.innerWidth,ih=window.innerHeight;
+    if(iw<=500){var z=iw/393;document.documentElement.classList.add('mob');phone.style.zoom=z;phone.style.height=(ih/z)+'px';}
+    else{document.documentElement.classList.remove('mob');phone.style.zoom=1;phone.style.height='';}}
   window.addEventListener('resize',fit);fit();
   applyTheme();setColor(255,0);
 })();

@@ -233,3 +233,6 @@ html[data-th=light] .tp,html[data-th=light] .topwrap{--foreground\/color\/second
 .sh-body #hue,.sh-body .fnt{width:calc((100% - 51px) * 1.05)}
 .themes{width:100%}
 .sheet input[type=range],.fnt input[type=range]{height:26px}
+
+html.mob body{padding:0;display:block;overflow:hidden}
+html.mob .phone{border-radius:0;box-shadow:none;width:393px}
