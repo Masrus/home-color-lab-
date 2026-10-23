@@ -236,3 +236,9 @@ html[data-th=light] .tp,html[data-th=light] .topwrap{--foreground\/color\/second
 
 html.mob body{padding:0;display:block;overflow:hidden}
 html.mob .phone{border-radius:0;box-shadow:none;width:393px}
+
+.wall i{filter:none!important;width:640px!important;height:640px!important;margin:-100px 0 0 -100px;background-image:radial-gradient(closest-side,var(--bc) 0%,transparent 100%)!important;background-color:transparent!important}
+.wall i:nth-child(2){--bc:hsl(var(--h) 80% 50%)}
+.wall i:nth-child(3){--bc:hsl(calc(var(--h) + 55) 80% 48%)}
+.wall i:nth-child(4){--bc:hsl(calc(var(--h) - 60) 80% 46%)}
+.wall i:nth-child(5){--bc:hsl(var(--h) 80% 50%)}
