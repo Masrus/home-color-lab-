@@ -236,3 +236,5 @@ html[data-th=light] .tp,html[data-th=light] .topwrap{--foreground\/color\/second
 
 html.mob body{padding:0;display:block;overflow:hidden}
 html.mob .phone{border-radius:0;box-shadow:none;width:393px}
+
+html.mob .fakebar{height:calc(env(safe-area-inset-top,0px) / var(--z,1))!important;padding:0!important;visibility:hidden}
