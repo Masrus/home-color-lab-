@@ -251,3 +251,5 @@ html[data-th=light] .px .d5{color:rgba(255,255,255,.92)} html[data-th=light] .px
 html[data-th=light] .mi p{color:#55555a} html[data-th=light] .mi.on p{color:#000}
 html[data-th=light] .appbar{background:linear-gradient(to top,rgba(255,255,255,.92),rgba(255,255,255,.7));border-top-color:rgba(0,0,0,.08)}
 html[data-th=light] .appbar .mi:not(.on) img{filter:brightness(.55)}
+
+html[data-th=light]{--card-light:color-mix(in srgb,color-mix(in srgb,var(--tint-a) var(--sp),var(--cg-b)) var(--cg-o),transparent)}
