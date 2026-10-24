@@ -242,3 +242,12 @@ html.mob .phone{border-radius:0;box-shadow:none;width:393px}
 .wall i:nth-child(3){--bc:hsl(calc(var(--h) + 55) 80% 48%)}
 .wall i:nth-child(4){--bc:hsl(calc(var(--h) - 60) 80% 46%)}
 .wall i:nth-child(5){--bc:hsl(var(--h) 80% 50%)}
+
+/* light-theme legibility pass */
+html[data-th=light]{--foreground\/secondary\/normal:#55555a;--foreground\/color\/secondary\/normal:#55555a;--foreground\/color\/positive\/normal:#00743a;--foreground\/color\/negative\/normal:#c8340f}
+html[data-th=light] .wall{background:#e4e4e8}
+html[data-th=light] .wall .bgl{opacity:.5}
+html[data-th=light] .px .d5{color:rgba(255,255,255,.92)} html[data-th=light] .px .d8{color:#fff}
+html[data-th=light] .mi p{color:#55555a} html[data-th=light] .mi.on p{color:#000}
+html[data-th=light] .appbar{background:linear-gradient(to top,rgba(255,255,255,.92),rgba(255,255,255,.7));border-top-color:rgba(0,0,0,.08)}
+html[data-th=light] .appbar .mi:not(.on) img{filter:brightness(.55)}
