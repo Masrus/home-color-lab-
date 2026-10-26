@@ -322,7 +322,7 @@ html[data-th=dark] .tabA img{filter:invert(1) brightness(1.04)}
 .sheet #bri::-webkit-slider-thumb{background:var(--cbg)}
 .sheet #hue::-moz-range-thumb{background:hsl(var(--ch) 85% 55%)}
 .sheet #bri::-moz-range-thumb{background:var(--cbg)}
-.sh-body #bri{width:calc((100% - 51px) * 1.05)}
+
 html[data-c] .wall{background:linear-gradient(180deg,var(--cbg) 0,hsl(calc(var(--ch) + 18) 36% calc(var(--cl) * 1% - 5%)) 55%,hsl(calc(var(--ch) - 14) 38% calc(var(--cl) * 1% + 3%)) 100%)}
 html[data-c] .wall .bgi,html[data-c] .wall .bgl,html[data-c] .wall i{display:none!important}
 html[data-c][data-th=dark] .sheet{background:color-mix(in srgb,var(--cbg) 75%,#000)}
@@ -339,3 +339,63 @@ html[data-th=light] .dim{background:#fff}
  linear-gradient(135deg,#ffd0b0 0,#e5b8ff 45%,#9ed8ff 100%)}
 .tcust::after{display:none}
 .tcust{background-repeat:no-repeat;background-origin:border-box;background-clip:padding-box}
+/* smooth sheet resize */
+.cust{display:block!important}
+.custwrap{width:100%;display:grid;grid-template-rows:0fr;margin-top:-24px;opacity:0;transition:grid-template-rows .32s cubic-bezier(.22,1,.36,1),margin-top .32s cubic-bezier(.22,1,.36,1),opacity .24s ease-out;pointer-events:none}
+.custin{overflow:hidden;min-height:0;display:flex;flex-direction:column;align-items:center;gap:24px;padding:4px 0}
+.sheet[data-m=custom] .custwrap{grid-template-rows:1fr;margin-top:0;opacity:1;pointer-events:auto}
+.custwrap:not(:focus-within){}
+@media (prefers-reduced-motion:reduce){.custwrap{transition:none}}
+/* smooth dark<->light flip (custom slider crossing threshold, theme switch) */
+html.flip .phone *,html.flip .sheet,html.flip .sheet *{transition:background-color .45s ease,color .45s ease,border-color .45s ease,box-shadow .45s ease,opacity .45s ease,fill .45s ease,filter .45s ease!important}
+@media (prefers-reduced-motion:reduce){html.flip *{transition:none!important}}
+html[data-c][data-th=light] .tp,html[data-c][data-th=light] .topwrap{--card-light:rgba(255,255,255,.38)}
+/* brightness slider: dark/light threshold marker */
+.briw{position:relative;width:calc((100% - 51px) * 1.05);--tx:calc(14.5px + (100% - 29px) * .5)}
+.sh-body .briw #bri{width:100%;display:block}
+.briw .bn{position:absolute;left:var(--tx);top:0;width:2px;height:26px;margin-left:-1px;background:rgba(255,255,255,.85);mix-blend-mode:normal;pointer-events:none;border-radius:1px;box-shadow:0 0 0 1px rgba(0,0,0,.25)}
+.briw .bl{display:block;position:absolute;top:32px;font:400 14px/18px var(--fontfamily\/general);color:var(--foreground\/secondary\/normal);white-space:nowrap;transition:color .2s}
+.briw .bl.l{left:0}
+.briw .bl.r{left:var(--tx);margin-left:-1px}
+.briw:not(.lt) .bl.l,.briw.lt .bl.r{color:var(--foreground\/primary\/normal);font-weight:500}
+.briw{margin-bottom:18px}
+/* random custom background */
+@property --ax{syntax:'<percentage>';inherits:true;initial-value:15%}
+@property --ay{syntax:'<percentage>';inherits:true;initial-value:10%}
+@property --bx{syntax:'<percentage>';inherits:true;initial-value:90%}
+@property --by{syntax:'<percentage>';inherits:true;initial-value:45%}
+@property --cx{syntax:'<percentage>';inherits:true;initial-value:25%}
+@property --cy{syntax:'<percentage>';inherits:true;initial-value:95%}
+@property --ao{syntax:'<number>';inherits:true;initial-value:30}
+@property --bo{syntax:'<number>';inherits:true;initial-value:-35}
+@property --co{syntax:'<number>';inherits:true;initial-value:60}
+html[data-c] .wall{--td:.9s;transition:--ax var(--td) ease-in-out,--ay var(--td) ease-in-out,--bx var(--td) ease-in-out,--by var(--td) ease-in-out,--cx var(--td) ease-in-out,--cy var(--td) ease-in-out,--ao var(--td) ease-in-out,--bo var(--td) ease-in-out,--co var(--td) ease-in-out;
+  background:
+   radial-gradient(70% 38% at var(--ax) var(--ay),hsl(calc(var(--ch) + var(--ao)) 55% calc(var(--cl) * 1% + 10%)) 0,transparent 100%),
+   radial-gradient(75% 42% at var(--bx) var(--by),hsl(calc(var(--ch) + var(--bo)) 50% calc(var(--cl) * 1% - 7%)) 0,transparent 100%),
+   radial-gradient(80% 40% at var(--cx) var(--cy),hsl(calc(var(--ch) + var(--co)) 55% calc(var(--cl) * 1% + 6%)) 0,transparent 100%),
+   var(--cbg)}
+@media (prefers-reduced-motion:reduce){html[data-c] .wall{transition:none}}
+.briw .bl{top:32px;width:calc(50% - 7px);text-align:center;margin:0}
+.briw .bl.l{left:0}
+.briw .bl.r{left:auto;right:0;margin-left:0}
+/* labels inside the brightness track */
+.briw{height:26px;margin-bottom:0;border-radius:13px;background:linear-gradient(to right,hsl(var(--ch) 38% 6%),hsl(var(--ch) 38% 49%),hsl(var(--ch) 38% 92%))}
+.sheet .briw #bri{background:transparent!important;position:relative;z-index:2}
+.briw .bn{z-index:1}
+.briw .bl{top:0;height:26px;display:flex;align-items:center;justify-content:center;z-index:1;font:500 14px/18px var(--fontfamily\/general);pointer-events:none}
+.briw .bl.l{left:0;width:calc(var(--tx) - 1px);margin:0;color:rgba(255,255,255,.85)}
+.briw .bl.r{left:calc(var(--tx) + 1px);right:0;margin:0;color:rgba(0,0,0,.7)}
+.briw:not(.lt) .bl.l,.briw.lt .bl.r{font-weight:600}
+.briw:not(.lt) .bl.l{color:#fff}.briw.lt .bl.r{color:#000}
+.briw .bl.l{justify-content:flex-start;padding-left:12px;width:calc(var(--tx) - 1px);box-sizing:border-box}
+.briw .bl.r{justify-content:flex-end;padding-right:12px;box-sizing:border-box}
+html[data-c] .wall::before{display:none!important}
+.fname{font:500 14px/18px var(--fontfamily\/general)!important}
+.briw .bl svg{display:block;flex:none}
+.briw .bl.l{padding-left:8px;color:#fff;opacity:.55}.briw .bl.r{padding-right:8px;color:#000;opacity:.55}
+.briw:not(.lt) .bl.l,.briw.lt .bl.r{opacity:1}
+.briw .bl.l{padding-left:5px}.briw .bl.r{padding-right:5px}
+.briw .bl.l{padding-left:4px}.briw .bl.r{padding-right:1px}
+.thm .tl{display:block;margin-top:8px;font:400 14px/18px var(--fontfamily\/general);color:var(--foreground\/secondary\/normal);transition:color .2s}
+.thm.on .tl{color:var(--foreground\/primary\/normal);font-weight:500}
