@@ -1,5 +1,3 @@
-<meta name="robots" content="noindex, nofollow, noarchive">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Home Color Lab</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -8,6 +6,7 @@
 <style>@@THEMECSS@@</style>
 <main class="phone" id="phone">
   <div class="wall" aria-hidden="true"><img class="bgi" alt="" src="@@BGIMG@@"><img class="bgl" alt="" src="ASSET::46a75d88-02d7-4013-93fe-cac3332333f2.png"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="dim" aria-hidden="true"></div>
   <div class="scroll"><div class="scr">
     <div class="topwrap">@@TOPBLOCK@@</div>
     <div class="tp">@@TOPPART@@</div>
@@ -28,8 +27,10 @@
         <button class="thm on" type="button" data-t="dark" aria-label="Dark"><span class="tile"><img alt="" src="ASSET::bb8a57b9-7218-418f-9637-14649399b664.png"></span><span class="tc"><img alt="" src="ASSET::3f731353-6f5f-4d98-b97f-cc20e406e379.svg"></span></button>
         <button class="thm" type="button" data-t="light" aria-label="Light"><span class="tile"><img class="crop" alt="" src="ASSET::74bd72fb-e814-4eb8-8c00-03ddceaa4aca.png"></span><span class="tc"><img alt="" src="ASSET::3f731353-6f5f-4d98-b97f-cc20e406e379.svg"></span></button>
         <button class="thm" type="button" data-t="system" aria-label="System"><span class="tile"><img alt="" src="ASSET::2385f4ac-c0ec-4d63-9320-06debcca5eee.png"></span><span class="tc"><img alt="" src="ASSET::3f731353-6f5f-4d98-b97f-cc20e406e379.svg"></span></button>
+        <button class="thm" type="button" data-t="custom" aria-label="Custom"><span class="tile tcust"></span><span class="tc"><img alt="" src="ASSET::3f731353-6f5f-4d98-b97f-cc20e406e379.svg"></span></button>
       </div>
-      <input type="range" id="hue" min="0" max="370" value="0" aria-label="Оттенок">
+      <input type="range" id="hue" class="cust" min="0" max="360" value="255" aria-label="Оттенок">
+      <input type="range" id="bri" class="cust" min="0" max="100" value="22" aria-label="Яркость">
       <div class="fnt"><input type="range" id="fnt" min="0" max="4" step="1" value="4" aria-label="Шрифт"><span class="fname" id="fname">SF Pro</span></div>
     </div>
     <div class="nextwrap"><button class="next" id="next" type="button">Next</button></div>

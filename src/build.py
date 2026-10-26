@@ -98,7 +98,7 @@ s_plus = A('ec02ea8c-738f-455d-b68b-8ef7d33f9004.svg')
 
 signal = '''<section class="card sig">
 <div class="sg-h"><div class="sg-top"><div class="badge"><img class="av" alt="" src="%(av)s"><span>AUTOCHARTIST</span></div><span class="cbtn32 str">%(car)s</span></div>
-<div class="sg-t"><div><p class="t20">XAUUSD&nbsp;&nbsp;&nbsp;Down&nbsp;<img class="ad" alt="" src="%(down)s"></p><p class="t14 sec2">Triangle&nbsp;·&nbsp;m1&nbsp;·&nbsp;51 candles</p></div><span class="ibtn"><img alt="" src="%(bell)s"></span></div></div>
+<div class="sg-t"><div><p class="t20">XAUUSD&nbsp;Down&nbsp;<img class="ad" alt="" src="%(down)s"></p><p class="t14 sec2">Triangle&nbsp;·&nbsp;m1&nbsp;·&nbsp;51 candles</p></div><span class="ibtn"><img alt="" src="%(bell)s"></span></div></div>
 <div class="sg-b"><div class="live"><div class="lv-l"><img alt="" src="%(dot)s" class="dot"><span>32 min left</span></div><div class="lv-r"><span>Quality&nbsp;</span><span>25%%</span><span class="qi"><img class="q1" alt="" src="%(v1)s"><img class="q2" alt="" src="%(v2)s"></span></div></div>
 <div class="chartbox"><img alt="" src="%(chart)s"></div></div>
 <div class="sg-f">%(vol)s<div class="bigbtn" style="background:var(--accent\\/negative\\/normal)">Sell 1.1024</div></div></section>''' % dict(
@@ -171,6 +171,22 @@ page = page.replace('text-right tracking-[var(--letterspacing\\/dense,-0.1px)] w
 page = page.replace('<img alt="" class="absolute block inset-0 max-w-none size-full" src="ASSET::7cc8c203','<img id="logo" alt="" class="absolute block inset-0 max-w-none size-full" src="ASSET::7cc8c203',1)
 page = page.replace('class="block max-w-none size-full" src="ASSET::f147ece8','class="block max-w-none size-full sb" src="ASSET::f147ece8')
 page = page.replace('bg-[var(--buttonbackground\\/secondary\\/normal,#f7f7f7)] content-stretch flex gap-[var(--spacing\\/2,8px)] h-[40px]','bg-[var(--сontrol,rgba(209,209,209,0.1))] content-stretch flex gap-[var(--spacing\\/2,8px)] h-[40px]').replace('bg-[var(--buttonbackground\\/secondary\\/normal,#f7f7f7)] content-stretch flex gap-[var(--spacing/1,4px)] h-[40px]','bg-[var(--сontrol,rgba(209,209,209,0.1))] content-stretch flex gap-[var(--spacing/1,4px)] h-[40px]')
+# AUDUSD in My list: Australian flag (Figma light v4), title spacing
+_i = [m.start() for m in re.finditer('AUDUSD', page)][-1]
+_seg = page[_i-2500:_i]
+_ids = re.findall(r'ASSET::[0-9a-f-]+\.svg', _seg)
+if _ids:
+    _last = _ids[-1]
+    _p = _seg.rfind(_last)
+    page = page[:_i-2500] + _seg[:_p] + 'ASSET::ad112617-0362-4d80-9b32-7f09ccde432b.svg' + _seg[_p+len(_last):] + page[_i:]
+# dark-theme chips (Figma dark: My list = active-control, Gold 200 = button secondary, New watchlist = stroke)
+for _txt,_cls in (('New watchlist','tabC'),('Gold 200','tabB'),('My list','tabA')):
+    _k = page.find(_txt)
+    _d = page.rfind('<div class="bg-[var(', 0, _k)
+    page = page[:_d] + '<div class="' + _cls + ' ' + page[_d+len('<div class="'):]
+_old='<div class="bg-[var(--card-light,rgba(209,209,209,0.1))] backdrop-blur-[18px] content-stretch flex flex-col gap-[var(--spacing\\/4,16px)] items-start overflow-clip p-[16px] relative rounded-[32px] size-full">'
+assert _old in page
+page = page.replace(_old, _old.replace('<div class="','<div class="wl ',1),1)
 open(B + '/page.src.html', 'w').write(page)
 
 # ---- download assets ----
@@ -197,9 +213,9 @@ for i in ids:
         uris[i] = 'data:image/svg+xml;base64,' + base64.b64encode(raw).decode()
     else:
         im = Image.open(io.BytesIO(raw)).convert('RGBA')
-        if max(im.size) > 1400:
+        if max(im.size) > 4400:
             r = 1400 / max(im.size); im = im.resize((int(im.width * r), int(im.height * r)))
-        buf = io.BytesIO(); im.save(buf, 'WEBP', quality=82)
+        buf = io.BytesIO(); im.save(buf, 'WEBP', lossless=True, quality=100, method=4)
         uris[i] = 'data:image/webp;base64,' + base64.b64encode(buf.getvalue()).decode()
         print(i, im.size, len(buf.getvalue()))
 # write a tailwind-source version (tokens kept) and a final version
