@@ -556,6 +556,9 @@ html.sa[data-th=light] .sbscrim{background:linear-gradient(to bottom,rgba(0,0,0,
 html.sf .topwrap .h-\[58px\]{height:max(12px,calc(env(safe-area-inset-top,0px) / var(--z,1)))!important}
 .sbscrim{display:none!important}
 html.sf .sbscrim{display:block!important}
+
+/* iOS: touch-action is not inherited across a scroll container, so set it on the themes row itself */
+.themes,.themes *{touch-action:pan-x}
 </style>
 <div id="vp" aria-hidden="true" style="position:fixed;left:0;top:0;width:1px;height:100%;visibility:hidden;pointer-events:none"></div>
 <main class="phone" id="phone">
